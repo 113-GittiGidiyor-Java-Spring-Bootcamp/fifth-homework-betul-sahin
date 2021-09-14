@@ -43,9 +43,11 @@ public class CourseRegistrationService {
      * @return the found registration object
      */
     @Transactional(readOnly = true)
-    public CourseRegistration findById(long id){
-        return courseRegistrationRepository.findById(id).orElseThrow(
+    public CourseRegistrationDto findById(long id){
+        CourseRegistration courseRegistration = courseRegistrationRepository.findById(id).orElseThrow(
                 () -> new CourseRegistrationNotFoundException(String.format(COURSEREGISTRATION_NOT_FOUND, id)));
+
+        return courseRegistrationMapper.mapToDto(courseRegistration);
     }
 
     /**
@@ -90,7 +92,8 @@ public class CourseRegistrationService {
      */
     @Transactional
     public Optional<CourseRegistration> update(CourseRegistrationDto request){
-        CourseRegistration selectedCourseRegistration = this.findById(request.getId());
+        CourseRegistration selectedCourseRegistration = courseRegistrationRepository.findById(request.getId()).orElseThrow(
+                () -> new CourseRegistrationNotFoundException(String.format(COURSEREGISTRATION_NOT_FOUND, request.getId())));
 
         // Has the student registered for this course before ?
         boolean registrationExist = courseRegistrationRepository.findByStudentIdAndCourseId(
@@ -125,7 +128,9 @@ public class CourseRegistrationService {
      */
     @Transactional(readOnly = true)
     public void deleteById(long id){
-        CourseRegistration selectedCourseRegistration = this.findById(id);
+        CourseRegistration selectedCourseRegistration = courseRegistrationRepository.findById(id).orElseThrow(
+                () -> new CourseRegistrationNotFoundException(String.format(COURSEREGISTRATION_NOT_FOUND, id)));
+
         courseRegistrationRepository.delete(selectedCourseRegistration);
     }
 }

@@ -43,10 +43,12 @@ public class StudentService {
      * @return the found student object
      */
     @Transactional(readOnly = true)
-    public Student findById(long id) {
-        return studentRepository.findById(id).
+    public StudentDto findById(long id) {
+        Student student = studentRepository.findById(id).
                 orElseThrow(() -> new StudentNotFoundException(
                         String.format(STUDENT_NOT_FOUND, id)));
+
+        return studentMapper.mapToDto(student);
     }
 
     /**
@@ -75,7 +77,9 @@ public class StudentService {
     @Transactional
     public Optional<Student> update(StudentDto request) {
 
-        Student selectedStudent = this.findById(request.getId());
+        Student selectedStudent = studentRepository.findById(request.getId()).
+                orElseThrow(() -> new StudentNotFoundException(
+                        String.format(STUDENT_NOT_FOUND, request.getId())));
 
         this.validateRequest(request);
 
@@ -100,7 +104,10 @@ public class StudentService {
      */
     @Transactional(readOnly = true)
     public void deleteById(long id) {
-        Student selectStudent = this.findById(id);
+        Student selectStudent = studentRepository.findById(id).
+                orElseThrow(() -> new StudentNotFoundException(
+                        String.format(STUDENT_NOT_FOUND, id)));
+
         studentRepository.delete(selectStudent);
     }
 

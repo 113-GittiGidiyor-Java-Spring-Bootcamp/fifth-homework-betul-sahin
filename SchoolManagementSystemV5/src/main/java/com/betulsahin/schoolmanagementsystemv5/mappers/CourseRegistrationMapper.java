@@ -2,6 +2,8 @@ package com.betulsahin.schoolmanagementsystemv5.mappers;
 
 import com.betulsahin.schoolmanagementsystemv5.dtos.CourseRegistrationDto;
 import com.betulsahin.schoolmanagementsystemv5.entities.CourseRegistration;
+import com.betulsahin.schoolmanagementsystemv5.repositories.CourseRepository;
+import com.betulsahin.schoolmanagementsystemv5.repositories.StudentRepository;
 import com.betulsahin.schoolmanagementsystemv5.services.CourseService;
 import com.betulsahin.schoolmanagementsystemv5.services.StudentService;
 import org.mapstruct.Mapper;
@@ -11,12 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Mapper(componentModel = "spring")
 public abstract class CourseRegistrationMapper {
     @Autowired
-    protected StudentService studentService;
+    protected StudentRepository studentRepositorye;
     @Autowired
-    protected CourseService courseService;
+    protected CourseRepository courseRepository;
 
-    @Mapping(target = "student", expression = "java(studentService.findById(courseRegistrationDto.getStudentId()))")
-    @Mapping(target = "course", expression = "java(courseService.findById(courseRegistrationDto.getCourseId()))")
+    @Mapping(target = "student", expression = "java(studentRepositorye.findById(courseRegistrationDto.getStudentId()).get())")
+    @Mapping(target = "course", expression = "java(courseRepository.findById(courseRegistrationDto.getCourseId()).get())")
     public abstract CourseRegistration map(CourseRegistrationDto courseRegistrationDto);
 
     @Mapping(target = "studentId", source = "student.id")

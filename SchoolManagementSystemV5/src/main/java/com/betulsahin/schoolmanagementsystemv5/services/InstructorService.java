@@ -47,9 +47,11 @@ public class InstructorService {
      * @return the found instructor object
      */
     @Transactional(readOnly = true)
-    public Instructor findById(long id) {
-        return instructorRepository.findById(id).orElseThrow(() -> new InstructorNotFoundException(
+    public InstructorDto findById(long id) {
+        Instructor instructor = instructorRepository.findById(id).orElseThrow(() -> new InstructorNotFoundException(
                 String.format(INSTRUCTOR_NOT_FOUND, id)));
+
+        return instructorMapper.mapToDto(instructor);
     }
 
     /**
@@ -83,7 +85,8 @@ public class InstructorService {
      */
     @Transactional
     public Optional<Instructor> update(InstructorDto request) {
-        Instructor selectedInstructor = this.findById(request.getId());
+        Instructor selectedInstructor = instructorRepository.findById(request.getId()).orElseThrow(() -> new InstructorNotFoundException(
+                String.format(INSTRUCTOR_NOT_FOUND, request.getId())));
 
         boolean instructorExist = instructorRepository.
                 findByPhoneNumber(request.getPhoneNumber()).
@@ -109,7 +112,8 @@ public class InstructorService {
      */
     @Transactional
     public Optional<Instructor> updateSalary(long id, double salaryPercentage, SalaryUpdateType salaryUpdateType) {
-        Instructor selectedInstructor = this.findById(id);
+        Instructor selectedInstructor = instructorRepository.findById(id).orElseThrow(() -> new InstructorNotFoundException(
+                String.format(INSTRUCTOR_NOT_FOUND, id)));
 
         if (selectedInstructor instanceof PermanentInstructor) {
             double payout = PayrollUtil.calculateSalary(selectedInstructor, salaryPercentage, salaryUpdateType);
@@ -131,7 +135,8 @@ public class InstructorService {
      */
     @Transactional(readOnly = true)
     public void deleteById(long id) {
-        Instructor selectedInstructor = this.findById(id);
+        Instructor selectedInstructor = instructorRepository.findById(id).orElseThrow(() -> new InstructorNotFoundException(
+                String.format(INSTRUCTOR_NOT_FOUND, id)));
         instructorRepository.delete(selectedInstructor);
     }
 }
