@@ -3,7 +3,7 @@ package com.betulsahin.schoolmanagementsystemv5.mappers;
 import com.betulsahin.schoolmanagementsystemv5.dtos.InstructorDto;
 import com.betulsahin.schoolmanagementsystemv5.dtos.PermanentInstructorDto;
 import com.betulsahin.schoolmanagementsystemv5.dtos.VisitingResearcherDto;
-import com.betulsahin.schoolmanagementsystemv5.entities.Instructor;
+import com.betulsahin.schoolmanagementsystemv5.entities.abstracts.Instructor;
 import com.betulsahin.schoolmanagementsystemv5.entities.PermanentInstructor;
 import com.betulsahin.schoolmanagementsystemv5.entities.VisitingResearcher;
 import org.mapstruct.Mapper;

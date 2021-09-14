@@ -1,6 +1,6 @@
-package com.betulsahin.schoolmanagementsystemv5.entities;
+package com.betulsahin.schoolmanagementsystemv5.entities.abstracts;
 
-import com.betulsahin.schoolmanagementsystemv5.entities.abstracts.AbstractBaseEntity;
+import com.betulsahin.schoolmanagementsystemv5.entities.Course;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Instructor extends AbstractBaseEntity {
+public abstract class Instructor extends AbstractBaseEntity {
 
     private String name;
     private String address;
@@ -29,4 +29,6 @@ public class Instructor extends AbstractBaseEntity {
         this.address = address;
         this.phoneNumber = phoneNumber;
     }
+
+    public abstract double getSalary();
 }

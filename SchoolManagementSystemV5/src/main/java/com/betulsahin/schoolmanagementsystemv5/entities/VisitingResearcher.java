@@ -1,5 +1,6 @@
 package com.betulsahin.schoolmanagementsystemv5.entities;
 
+import com.betulsahin.schoolmanagementsystemv5.entities.abstracts.Instructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,5 +16,10 @@ public class VisitingResearcher extends Instructor {
                               String phoneNumber, double hourlySalary) {
         super(name, address, phoneNumber);
         this.hourlySalary = hourlySalary;
+    }
+
+    @Override
+    public double getSalary() {
+        return hourlySalary;
     }
 }

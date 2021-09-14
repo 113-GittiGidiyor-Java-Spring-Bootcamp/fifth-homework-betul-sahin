@@ -1,6 +1,7 @@
 package com.betulsahin.schoolmanagementsystemv5.entities;
 
 import com.betulsahin.schoolmanagementsystemv5.entities.abstracts.AbstractBaseEntity;
+import com.betulsahin.schoolmanagementsystemv5.entities.abstracts.Instructor;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
