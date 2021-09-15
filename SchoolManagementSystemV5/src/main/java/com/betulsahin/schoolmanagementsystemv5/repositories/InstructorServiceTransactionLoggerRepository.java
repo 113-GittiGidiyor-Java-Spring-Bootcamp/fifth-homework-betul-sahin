@@ -1,5 +1,6 @@
 package com.betulsahin.schoolmanagementsystemv5.repositories;
 
+import com.betulsahin.schoolmanagementsystemv5.models.InstructorServiceTransactionLogger;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -10,7 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-public interface InstructorServiceTransactionLogger extends PagingAndSortingRepository<InstructorServiceTransactionLogger, Long> {
-    @Query("SELECT * ins FROM InstructorServiceTransactionLogger ins WHERE ins.requestDateTime = ?1")
+public interface InstructorServiceTransactionLoggerRepository extends PagingAndSortingRepository<InstructorServiceTransactionLogger, Long> {
+    @Query("SELECT ins FROM InstructorServiceTransactionLogger ins WHERE ins.requestDateTime = ?1")
     Page<List<InstructorServiceTransactionLogger>> findAllTransactionByRequestDate(LocalDate requestDate, Pageable pageable);
 }

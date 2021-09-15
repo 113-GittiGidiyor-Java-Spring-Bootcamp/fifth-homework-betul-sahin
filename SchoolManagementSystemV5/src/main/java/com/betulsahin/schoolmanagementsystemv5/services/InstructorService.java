@@ -1,6 +1,7 @@
 package com.betulsahin.schoolmanagementsystemv5.services;
 
 import com.betulsahin.schoolmanagementsystemv5.dtos.InstructorDto;
+import com.betulsahin.schoolmanagementsystemv5.models.InstructorServiceTransactionLogger;
 import com.betulsahin.schoolmanagementsystemv5.models.abstracts.Instructor;
 import com.betulsahin.schoolmanagementsystemv5.models.PermanentInstructor;
 import com.betulsahin.schoolmanagementsystemv5.models.VisitingResearcher;
@@ -9,11 +10,15 @@ import com.betulsahin.schoolmanagementsystemv5.exceptions.InstructorIsAlreadyExi
 import com.betulsahin.schoolmanagementsystemv5.exceptions.InstructorNotFoundException;
 import com.betulsahin.schoolmanagementsystemv5.mappers.InstructorMapper;
 import com.betulsahin.schoolmanagementsystemv5.repositories.InstructorRepository;
+import com.betulsahin.schoolmanagementsystemv5.repositories.InstructorServiceTransactionLoggerRepository;
+import com.betulsahin.schoolmanagementsystemv5.utils.ClientRequestInfo;
 import com.betulsahin.schoolmanagementsystemv5.utils.PayrollUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -22,10 +27,15 @@ import static com.betulsahin.schoolmanagementsystemv5.utils.ErrorMessageConstant
 import static com.betulsahin.schoolmanagementsystemv5.utils.ErrorMessageConstants.INSTRUCTOR_NOT_FOUND;
 
 @Service
-@RequiredArgsConstructor
 public class InstructorService {
-    private final InstructorRepository instructorRepository;
-    private final InstructorMapper instructorMapper;
+    @Autowired
+    private InstructorRepository instructorRepository;
+    @Autowired
+    private InstructorServiceTransactionLoggerRepository instructorServiceTransactionLoggerRepository;
+    @Autowired
+    private InstructorMapper instructorMapper;
+    @Autowired
+    private ClientRequestInfo clientRequestInfo;
 
     /**
      * finds all instructor from database.
@@ -115,15 +125,17 @@ public class InstructorService {
         Instructor selectedInstructor = instructorRepository.findById(id).orElseThrow(() -> new InstructorNotFoundException(
                 String.format(INSTRUCTOR_NOT_FOUND, id)));
 
+        double payout = PayrollUtil.calculateSalary(selectedInstructor, salaryPercentage, salaryUpdateType);
         if (selectedInstructor instanceof PermanentInstructor) {
-            double payout = PayrollUtil.calculateSalary(selectedInstructor, salaryPercentage, salaryUpdateType);
             ((PermanentInstructor) selectedInstructor).setFixedSalary(payout);
         } else if (selectedInstructor instanceof VisitingResearcher) {
-            double payout = PayrollUtil.calculateSalary(selectedInstructor, salaryPercentage, salaryUpdateType);
             ((VisitingResearcher) selectedInstructor).setHourlySalary(payout);
         }
 
         Instructor updatedInstructor = instructorRepository.save(selectedInstructor);
+
+        // logs salary update transactions
+        this.saveSalaryUpdateTransactions(updatedInstructor, salaryPercentage, salaryUpdateType);
 
         return Optional.of(updatedInstructor);
     }
@@ -139,4 +151,31 @@ public class InstructorService {
                 String.format(INSTRUCTOR_NOT_FOUND, id)));
         instructorRepository.delete(selectedInstructor);
     }
+
+    private void saveSalaryUpdateTransactions(Instructor instructor,
+                                              double salaryPercentage,
+                                              SalaryUpdateType salaryUpdateType){
+        InstructorServiceTransactionLogger transactionLogger = new InstructorServiceTransactionLogger();
+
+        transactionLogger.setInstructorId(instructor.getId());
+
+        if(salaryUpdateType.equals(SalaryUpdateType.UP)){
+            double payout = PayrollUtil.calculateSalary(instructor, salaryPercentage, SalaryUpdateType.DOWN);
+            transactionLogger.setSalaryBeforeUpdate(payout);
+
+        }else if(salaryUpdateType.equals(SalaryUpdateType.DOWN)){
+            double payout = PayrollUtil.calculateSalary(instructor, salaryPercentage, SalaryUpdateType.UP);
+            transactionLogger.setSalaryBeforeUpdate(payout);
+        }
+
+        transactionLogger.setSalaryAfterUpdate(instructor.getSalary());
+        transactionLogger.setSalaryPercentage(salaryPercentage);
+        transactionLogger.setRequestDateTime(LocalDate.now());
+        transactionLogger.setClientIpAdress(clientRequestInfo.getClientIpAdress());
+        transactionLogger.setClientUrl(clientRequestInfo.getClientUrl());
+        transactionLogger.setSessionActivityId(clientRequestInfo.getSessionActivityId());
+        transactionLogger.setSalaryUpdateType(salaryUpdateType);
+        this.instructorServiceTransactionLoggerRepository.save(transactionLogger);
+    }
 }
+
