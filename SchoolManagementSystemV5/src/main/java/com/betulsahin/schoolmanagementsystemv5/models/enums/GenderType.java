@@ -1,4 +1,4 @@
-package com.betulsahin.schoolmanagementsystemv5.entities.enums;
+package com.betulsahin.schoolmanagementsystemv5.models.enums;
 
 public enum GenderType {
     FEMALE("Female"),

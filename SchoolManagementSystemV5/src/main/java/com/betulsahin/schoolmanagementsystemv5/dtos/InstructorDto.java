@@ -2,6 +2,7 @@ package com.betulsahin.schoolmanagementsystemv5.dtos;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,7 +25,7 @@ import javax.validation.constraints.Size;
 public class InstructorDto {
     private long id;
 
-    //@ApiModelProperty(example = "Aybike Güliz Enzel Yağmur Eflinnisa Nebioğulları")
+    @ApiModelProperty(example = "Aybike Güliz Enzel Yağmur Eflinnisa Nebioğulları")
     @NotEmpty
     @Size(max = 50, message = "Your name cannot be greater than 50 characters")
     private String name;
@@ -34,7 +35,7 @@ public class InstructorDto {
     private String address;
 
     @NotEmpty
-    //@ApiModelProperty(example = "05551234466")
+    @ApiModelProperty(example = "05551234466")
     @NumberFormat(style = NumberFormat.Style.NUMBER)
     private String phoneNumber;
 }

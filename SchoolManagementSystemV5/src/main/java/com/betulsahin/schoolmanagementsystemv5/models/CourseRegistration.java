@@ -1,8 +1,6 @@
-package com.betulsahin.schoolmanagementsystemv5.entities;
+package com.betulsahin.schoolmanagementsystemv5.models;
 
-import com.betulsahin.schoolmanagementsystemv5.entities.Course;
-import com.betulsahin.schoolmanagementsystemv5.entities.Student;
-import com.betulsahin.schoolmanagementsystemv5.entities.abstracts.AbstractBaseEntity;
+import com.betulsahin.schoolmanagementsystemv5.models.abstracts.AbstractBaseEntity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;

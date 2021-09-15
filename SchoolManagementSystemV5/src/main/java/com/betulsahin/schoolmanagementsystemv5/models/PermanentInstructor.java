@@ -1,6 +1,6 @@
-package com.betulsahin.schoolmanagementsystemv5.entities;
+package com.betulsahin.schoolmanagementsystemv5.models;
 
-import com.betulsahin.schoolmanagementsystemv5.entities.abstracts.Instructor;
+import com.betulsahin.schoolmanagementsystemv5.models.abstracts.Instructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

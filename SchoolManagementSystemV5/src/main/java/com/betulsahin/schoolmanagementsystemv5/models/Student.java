@@ -1,7 +1,7 @@
-package com.betulsahin.schoolmanagementsystemv5.entities;
+package com.betulsahin.schoolmanagementsystemv5.models;
 
-import com.betulsahin.schoolmanagementsystemv5.entities.abstracts.AbstractBaseEntity;
-import com.betulsahin.schoolmanagementsystemv5.entities.enums.GenderType;
+import com.betulsahin.schoolmanagementsystemv5.models.abstracts.AbstractBaseEntity;
+import com.betulsahin.schoolmanagementsystemv5.models.enums.GenderType;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;

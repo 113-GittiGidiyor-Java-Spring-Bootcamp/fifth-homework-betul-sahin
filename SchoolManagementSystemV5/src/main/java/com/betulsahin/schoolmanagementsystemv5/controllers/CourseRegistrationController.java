@@ -1,7 +1,7 @@
 package com.betulsahin.schoolmanagementsystemv5.controllers;
 
 import com.betulsahin.schoolmanagementsystemv5.dtos.CourseRegistrationDto;
-import com.betulsahin.schoolmanagementsystemv5.entities.CourseRegistration;
+import com.betulsahin.schoolmanagementsystemv5.models.CourseRegistration;
 import com.betulsahin.schoolmanagementsystemv5.services.CourseRegistrationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

@@ -1,7 +1,8 @@
 package com.betulsahin.schoolmanagementsystemv5.controllers;
 
 import com.betulsahin.schoolmanagementsystemv5.dtos.InstructorDto;
-import com.betulsahin.schoolmanagementsystemv5.entities.abstracts.Instructor;
+import com.betulsahin.schoolmanagementsystemv5.models.abstracts.Instructor;
+import com.betulsahin.schoolmanagementsystemv5.models.enums.SalaryUpdateType;
 import com.betulsahin.schoolmanagementsystemv5.services.InstructorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -53,7 +54,20 @@ public class InstructorController {
         return new ResponseEntity<>(instructorOptional.get(), HttpStatus.OK);
     }
 
-    @DeleteMapping("{id")
+    @PutMapping("{id}/{salaryPercentage}/{salaryUpdateType}")
+    public ResponseEntity<Instructor> updateSalary(@PathVariable long id,
+                                                   @PathVariable double salaryPercentage,
+                                                   @PathVariable SalaryUpdateType salaryUpdateType){
+        Optional<Instructor> instructorOptional = instructorService.updateSalary(id, salaryPercentage, salaryUpdateType);
+
+        if(!instructorOptional.isPresent()){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(instructorOptional.get(), HttpStatus.OK);
+    }
+
+    @DeleteMapping("{id}")
     public ResponseEntity<Void> delete(@PathVariable long id){
         instructorService.deleteById(id);
 

@@ -1,7 +1,7 @@
 package com.betulsahin.schoolmanagementsystemv5.mappers;
 
 import com.betulsahin.schoolmanagementsystemv5.dtos.StudentDto;
-import com.betulsahin.schoolmanagementsystemv5.entities.Student;
+import com.betulsahin.schoolmanagementsystemv5.models.Student;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

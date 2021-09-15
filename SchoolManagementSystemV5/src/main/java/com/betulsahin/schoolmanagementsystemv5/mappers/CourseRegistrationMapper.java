@@ -1,11 +1,9 @@
 package com.betulsahin.schoolmanagementsystemv5.mappers;
 
 import com.betulsahin.schoolmanagementsystemv5.dtos.CourseRegistrationDto;
-import com.betulsahin.schoolmanagementsystemv5.entities.CourseRegistration;
+import com.betulsahin.schoolmanagementsystemv5.models.CourseRegistration;
 import com.betulsahin.schoolmanagementsystemv5.repositories.CourseRepository;
 import com.betulsahin.schoolmanagementsystemv5.repositories.StudentRepository;
-import com.betulsahin.schoolmanagementsystemv5.services.CourseService;
-import com.betulsahin.schoolmanagementsystemv5.services.StudentService;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;

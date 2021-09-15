@@ -1,7 +1,7 @@
 package com.betulsahin.schoolmanagementsystemv5.services;
 
 import com.betulsahin.schoolmanagementsystemv5.dtos.StudentDto;
-import com.betulsahin.schoolmanagementsystemv5.entities.Student;
+import com.betulsahin.schoolmanagementsystemv5.models.Student;
 import com.betulsahin.schoolmanagementsystemv5.exceptions.StudentNotFoundException;
 import com.betulsahin.schoolmanagementsystemv5.mappers.StudentMapper;
 import com.betulsahin.schoolmanagementsystemv5.repositories.StudentRepository;

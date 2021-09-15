@@ -3,9 +3,9 @@ package com.betulsahin.schoolmanagementsystemv5.mappers;
 import com.betulsahin.schoolmanagementsystemv5.dtos.InstructorDto;
 import com.betulsahin.schoolmanagementsystemv5.dtos.PermanentInstructorDto;
 import com.betulsahin.schoolmanagementsystemv5.dtos.VisitingResearcherDto;
-import com.betulsahin.schoolmanagementsystemv5.entities.abstracts.Instructor;
-import com.betulsahin.schoolmanagementsystemv5.entities.PermanentInstructor;
-import com.betulsahin.schoolmanagementsystemv5.entities.VisitingResearcher;
+import com.betulsahin.schoolmanagementsystemv5.models.abstracts.Instructor;
+import com.betulsahin.schoolmanagementsystemv5.models.PermanentInstructor;
+import com.betulsahin.schoolmanagementsystemv5.models.VisitingResearcher;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

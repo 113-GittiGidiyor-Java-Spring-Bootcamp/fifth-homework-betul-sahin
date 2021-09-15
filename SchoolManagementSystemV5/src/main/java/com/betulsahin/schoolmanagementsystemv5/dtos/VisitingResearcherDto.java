@@ -1,5 +1,6 @@
 package com.betulsahin.schoolmanagementsystemv5.dtos;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,12 +14,7 @@ import javax.validation.constraints.NotEmpty;
 public class VisitingResearcherDto extends InstructorDto {
 
     @NotEmpty
-    // @ApiModelProperty(example = "80")
-    @NumberFormat(style = NumberFormat.Style.NUMBER)
-    private int monthlyWorkingHours;
-
-    @NotEmpty
-    // @ApiModelProperty(example = "250.0")
+    @ApiModelProperty(example = "80")
     @NumberFormat(style = NumberFormat.Style.CURRENCY)
-    private double hourlyRate;
+    private double hourlySalary;
 }

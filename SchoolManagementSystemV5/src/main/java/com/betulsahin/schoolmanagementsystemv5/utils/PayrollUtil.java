@@ -1,7 +1,7 @@
 package com.betulsahin.schoolmanagementsystemv5.utils;
 
-import com.betulsahin.schoolmanagementsystemv5.entities.abstracts.Instructor;
-import com.betulsahin.schoolmanagementsystemv5.entities.enums.SalaryUpdateType;
+import com.betulsahin.schoolmanagementsystemv5.models.abstracts.Instructor;
+import com.betulsahin.schoolmanagementsystemv5.models.enums.SalaryUpdateType;
 
 public class PayrollUtil {
     public static double calculateSalary(Instructor instructor,

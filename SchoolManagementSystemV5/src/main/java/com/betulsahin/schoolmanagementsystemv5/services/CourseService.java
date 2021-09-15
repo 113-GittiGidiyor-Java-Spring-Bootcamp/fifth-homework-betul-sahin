@@ -1,14 +1,12 @@
 package com.betulsahin.schoolmanagementsystemv5.services;
 
 import com.betulsahin.schoolmanagementsystemv5.dtos.CourseDto;
-import com.betulsahin.schoolmanagementsystemv5.entities.Course;
+import com.betulsahin.schoolmanagementsystemv5.models.Course;
 import com.betulsahin.schoolmanagementsystemv5.exceptions.CourseIsAlreadyExistException;
 import com.betulsahin.schoolmanagementsystemv5.exceptions.CourseNotFoundException;
 import com.betulsahin.schoolmanagementsystemv5.mappers.CourseMapper;
 import com.betulsahin.schoolmanagementsystemv5.repositories.CourseRepository;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

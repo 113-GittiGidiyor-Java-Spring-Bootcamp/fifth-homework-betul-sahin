@@ -1,7 +1,7 @@
 package com.betulsahin.schoolmanagementsystemv5.services;
 
 import com.betulsahin.schoolmanagementsystemv5.dtos.CourseRegistrationDto;
-import com.betulsahin.schoolmanagementsystemv5.entities.CourseRegistration;
+import com.betulsahin.schoolmanagementsystemv5.models.CourseRegistration;
 import com.betulsahin.schoolmanagementsystemv5.exceptions.CourseRegistrationNotFoundException;
 import com.betulsahin.schoolmanagementsystemv5.exceptions.StudentIsAlreadyRegisteredCourseException;
 import com.betulsahin.schoolmanagementsystemv5.exceptions.StudentNumberForOneCourseExceededException;

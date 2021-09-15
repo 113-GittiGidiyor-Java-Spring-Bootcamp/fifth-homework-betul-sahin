@@ -1,10 +1,10 @@
 package com.betulsahin.schoolmanagementsystemv5.services;
 
 import com.betulsahin.schoolmanagementsystemv5.dtos.InstructorDto;
-import com.betulsahin.schoolmanagementsystemv5.entities.abstracts.Instructor;
-import com.betulsahin.schoolmanagementsystemv5.entities.PermanentInstructor;
-import com.betulsahin.schoolmanagementsystemv5.entities.VisitingResearcher;
-import com.betulsahin.schoolmanagementsystemv5.entities.enums.SalaryUpdateType;
+import com.betulsahin.schoolmanagementsystemv5.models.abstracts.Instructor;
+import com.betulsahin.schoolmanagementsystemv5.models.PermanentInstructor;
+import com.betulsahin.schoolmanagementsystemv5.models.VisitingResearcher;
+import com.betulsahin.schoolmanagementsystemv5.models.enums.SalaryUpdateType;
 import com.betulsahin.schoolmanagementsystemv5.exceptions.InstructorIsAlreadyExistException;
 import com.betulsahin.schoolmanagementsystemv5.exceptions.InstructorNotFoundException;
 import com.betulsahin.schoolmanagementsystemv5.mappers.InstructorMapper;

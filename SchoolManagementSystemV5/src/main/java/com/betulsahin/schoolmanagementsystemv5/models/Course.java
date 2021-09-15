@@ -1,8 +1,9 @@
-package com.betulsahin.schoolmanagementsystemv5.entities;
+package com.betulsahin.schoolmanagementsystemv5.models;
 
-import com.betulsahin.schoolmanagementsystemv5.entities.abstracts.AbstractBaseEntity;
-import com.betulsahin.schoolmanagementsystemv5.entities.abstracts.Instructor;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.betulsahin.schoolmanagementsystemv5.models.abstracts.AbstractBaseEntity;
+import com.betulsahin.schoolmanagementsystemv5.models.abstracts.Instructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,12 +22,12 @@ public class Course extends AbstractBaseEntity {
     private String code;
     private int creditScore;
 
-    @JsonBackReference
-    // @JsonIgnore
+    //@JsonBackReference
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     private Instructor instructor;
 
-    @JsonBackReference
+    @JsonManagedReference
     // @JsonIgnore
     @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
     private Set<CourseRegistration> registrations = new HashSet<>();

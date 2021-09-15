@@ -1,7 +1,7 @@
-package com.betulsahin.schoolmanagementsystemv5.entities.abstracts;
+package com.betulsahin.schoolmanagementsystemv5.models.abstracts;
 
-import com.betulsahin.schoolmanagementsystemv5.entities.Course;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.betulsahin.schoolmanagementsystemv5.models.Course;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,8 +19,8 @@ public abstract class Instructor extends AbstractBaseEntity {
     private String address;
     private String phoneNumber;
 
-    @JsonManagedReference
-    //@JsonIgnore
+    //@JsonManagedReference
+    @JsonIgnore
     @OneToMany(mappedBy = "instructor", fetch = FetchType.LAZY)
     private Set<Course> courses = new HashSet<>();
 

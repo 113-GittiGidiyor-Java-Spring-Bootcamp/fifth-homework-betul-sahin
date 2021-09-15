@@ -1,6 +1,6 @@
 package com.betulsahin.schoolmanagementsystemv5.repositories;
 
-import com.betulsahin.schoolmanagementsystemv5.entities.Student;
+import com.betulsahin.schoolmanagementsystemv5.models.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

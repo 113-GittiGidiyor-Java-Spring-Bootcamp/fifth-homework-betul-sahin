@@ -1,8 +1,7 @@
-package com.betulsahin.schoolmanagementsystemv5.entities.abstracts;
+package com.betulsahin.schoolmanagementsystemv5.models.abstracts;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
