@@ -125,6 +125,7 @@ public class InstructorService {
         Instructor selectedInstructor = instructorRepository.findById(id).orElseThrow(() -> new InstructorNotFoundException(
                 String.format(INSTRUCTOR_NOT_FOUND, id)));
 
+        double salaryBefore = selectedInstructor.getSalary();
         double payout = PayrollUtil.calculateSalary(selectedInstructor, salaryPercentage, salaryUpdateType);
         if (selectedInstructor instanceof PermanentInstructor) {
             ((PermanentInstructor) selectedInstructor).setFixedSalary(payout);
@@ -135,7 +136,7 @@ public class InstructorService {
         Instructor updatedInstructor = instructorRepository.save(selectedInstructor);
 
         // logs salary update transactions
-        this.saveSalaryUpdateTransactions(updatedInstructor, salaryPercentage, salaryUpdateType);
+        this.saveSalaryUpdateTransactions(updatedInstructor, salaryBefore, salaryPercentage, salaryUpdateType);
 
         return Optional.of(updatedInstructor);
     }
@@ -153,21 +154,13 @@ public class InstructorService {
     }
 
     private void saveSalaryUpdateTransactions(Instructor instructor,
+                                              double salaryBefore,
                                               double salaryPercentage,
                                               SalaryUpdateType salaryUpdateType){
         InstructorServiceTransactionLogger transactionLogger = new InstructorServiceTransactionLogger();
 
         transactionLogger.setInstructorId(instructor.getId());
-
-        if(salaryUpdateType.equals(SalaryUpdateType.UP)){
-            double payout = PayrollUtil.calculateSalary(instructor, salaryPercentage, SalaryUpdateType.DOWN);
-            transactionLogger.setSalaryBeforeUpdate(payout);
-
-        }else if(salaryUpdateType.equals(SalaryUpdateType.DOWN)){
-            double payout = PayrollUtil.calculateSalary(instructor, salaryPercentage, SalaryUpdateType.UP);
-            transactionLogger.setSalaryBeforeUpdate(payout);
-        }
-
+        transactionLogger.setSalaryBeforeUpdate(salaryBefore);
         transactionLogger.setSalaryAfterUpdate(instructor.getSalary());
         transactionLogger.setSalaryPercentage(salaryPercentage);
         transactionLogger.setRequestDateTime(LocalDate.now());
