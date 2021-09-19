@@ -64,7 +64,7 @@ public class CourseRegistrationService {
                 isPresent();
 
         if(registrationExist){
-            String exceptionMessage = String.format(FOUND_REGISTERED_STUDENT, request.getStudentId());
+            String exceptionMessage = String.format(REGISTERED_STUDENT_FOUND, request.getStudentId());
             throw new StudentIsAlreadyRegisteredCourseException(exceptionMessage);
 
         }
@@ -101,9 +101,8 @@ public class CourseRegistrationService {
                 isPresent();
 
         if(registrationExist){
-            String exceptionMessage = String.format(FOUND_REGISTERED_STUDENT, request.getStudentId());
+            String exceptionMessage = String.format(REGISTERED_STUDENT_FOUND, request.getStudentId());
             throw new StudentIsAlreadyRegisteredCourseException(exceptionMessage);
-
         }
 
         // Is the number of students enrolled this course more than 20 ?

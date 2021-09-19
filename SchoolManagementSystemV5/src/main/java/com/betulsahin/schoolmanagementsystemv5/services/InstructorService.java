@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.betulsahin.schoolmanagementsystemv5.utils.ErrorMessageConstants.FOUND_INSTRUCTOR;
+import static com.betulsahin.schoolmanagementsystemv5.utils.ErrorMessageConstants.INSTRUCTOR_FOUND;
 import static com.betulsahin.schoolmanagementsystemv5.utils.ErrorMessageConstants.INSTRUCTOR_NOT_FOUND;
 
 @Service
@@ -53,7 +53,7 @@ public class InstructorService {
     /**
      * finds the instructor object by id.
      *
-     * @param id the identity of the course
+     * @param id
      * @return the found instructor object
      */
     @Transactional(readOnly = true)
@@ -67,7 +67,7 @@ public class InstructorService {
     /**
      * creates an instructor to database.
      *
-     * @param request the request object of instructor
+     * @param request
      * @return saved instructor as optional
      */
     @Transactional
@@ -78,7 +78,7 @@ public class InstructorService {
 
         if (instructorExist) {
             throw new InstructorIsAlreadyExistException(
-                    String.format(FOUND_INSTRUCTOR, request.getPhoneNumber()));
+                    String.format(INSTRUCTOR_FOUND, request.getPhoneNumber()));
         }
 
         Instructor savedInstructor = instructorRepository.save(
@@ -90,7 +90,7 @@ public class InstructorService {
     /**
      * updates a instructor to database.
      *
-     * @param request the request object of course
+     * @param request
      * @return updated instructor object as Optional
      */
     @Transactional
@@ -104,7 +104,7 @@ public class InstructorService {
 
         if (instructorExist) {
             throw new InstructorIsAlreadyExistException(
-                    String.format(FOUND_INSTRUCTOR, request.getPhoneNumber()));
+                    String.format(INSTRUCTOR_FOUND, request.getPhoneNumber()));
         }
 
         Instructor updatedInstructor = instructorRepository.save(
@@ -116,8 +116,8 @@ public class InstructorService {
     /**
      * updates salary of the instructor by given salary rate.
      *
-     * @param id         the identity of the instructor
-     * @param salaryRate for updating salary of the instructor
+     * @param id
+     * @param salaryRate
      * @return updated instructor object as Optional
      */
     @Transactional
@@ -144,7 +144,7 @@ public class InstructorService {
     /**
      * deletes the instructor object by id.
      *
-     * @param id the identity of the instructor object
+     * @param id
      */
     @Transactional(readOnly = true)
     public void deleteById(long id) {
@@ -153,6 +153,14 @@ public class InstructorService {
         instructorRepository.delete(selectedInstructor);
     }
 
+    /**
+     * saves transactions for salary update.
+     *
+     * @param instructor
+     * @param salaryBefore
+     * @param salaryPercentage
+     * @param salaryUpdateType
+     */
     private void saveSalaryUpdateTransactions(Instructor instructor,
                                               double salaryBefore,
                                               double salaryPercentage,

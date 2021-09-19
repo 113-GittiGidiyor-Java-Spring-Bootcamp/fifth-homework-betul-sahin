@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.betulsahin.schoolmanagementsystemv5.utils.ErrorMessageConstants.COURSE_NOT_FOUND;
-import static com.betulsahin.schoolmanagementsystemv5.utils.ErrorMessageConstants.FOUND_COURSE;
+import static com.betulsahin.schoolmanagementsystemv5.utils.ErrorMessageConstants.COURSE_FOUND;
 
 @Service
 @RequiredArgsConstructor
@@ -37,7 +37,7 @@ public class CourseService {
 
         if(courseExist){
             throw new CourseIsAlreadyExistException(
-                    String.format(FOUND_COURSE, request.getCode()));
+                    String.format(COURSE_FOUND, request.getCode()));
         }
 
         Course savedCourse = courseRepository.save(
@@ -91,7 +91,7 @@ public class CourseService {
 
         if(courseExist){
             throw new CourseIsAlreadyExistException(
-                    String.format(FOUND_COURSE, request.getCode()));
+                    String.format(COURSE_FOUND, request.getCode()));
         }
 
         Course updatedCourse = courseRepository.save(selectedCourse);
